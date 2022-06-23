@@ -1,5 +1,5 @@
-import { APIDMChannel, APIEmbed, APIGuildChannel, APITextChannel, APIVoiceChannel, ChannelType } from 'discord-api-types/v10';
-import type { EmbedBuilder } from '../builders/Embed';
+import { APIActionRowComponent, APIActionRowComponentTypes, APIDMChannel, APIEmbed, APIGuildChannel, APITextChannel, APIVoiceChannel, ChannelType } from 'discord-api-types/v10';
+import type { ActionRowBuilder, EmbedBuilder } from '../builders';
 import type { Client } from '../client/Client';
 import { SnowflakeUtil } from '../utils/Snowflake';
 import { BaseStructure } from './BaseStructure';
@@ -24,6 +24,7 @@ export interface MessageReferenceSend extends MessageReference {
 /** Represents a message to be sent to the Discord API */
 export interface MessagePayload {
   content?: string;
+  components?: (APIActionRowComponent<APIActionRowComponentTypes> | ActionRowBuilder)[];
   embeds?: (EmbedBuilder | APIEmbed)[];
   messageReference?: MessageReferenceSend;
 }

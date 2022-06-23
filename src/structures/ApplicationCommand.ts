@@ -1,4 +1,4 @@
-import { APIApplicationCommand, Routes } from 'discord-api-types/v10';
+import { APIApplicationCommand, APIApplicationCommandOption, Routes } from 'discord-api-types/v10';
 import type { Guild } from '.';
 import type { Client } from '../client/Client';
 import { PermissionsBitField } from '../utils/bitfield';
@@ -107,6 +107,49 @@ class ApplicationCommand extends BaseStructure {
   /** Edits the dm permission of this ApplicationCommand */
   setDMPermission(dmPermission = true) {
     return this.edit({ dmPermission });
+  }
+
+  /**
+   * Adds an option to this command
+   * @param option Option data
+   * @example
+   * ```js
+   * command.addOptions({
+   * name: 'user', required: true, type: ApplicationCommandOptionType.User
+   * })
+   * ```
+   * @example
+   * ```js
+   * command.addOptions({
+   * name: 'suggestion', required: true, type: ApplicationCommandOptionType.String,
+   * name: 'private', required: false, type: ApplicationCommandOptionType.Boolean,
+   * })
+   * ```
+   */
+  addOptions(...options: APIApplicationCommandOption[]) {
+    return this.edit({ options: [...(this.data.options ?? []), ...options] });
+  }
+
+  /**
+   * Sets the options of this command
+   * @param option Option data
+   * @example
+   * ```js
+   * command.setOptions({
+   * name: 'user', required: true, type: ApplicationCommandOptionType.User
+   * })
+   * ```
+   * @example
+   * ```js
+   * command.setOptions({
+   * name: 'suggestion', required: true, type: ApplicationCommandOptionType.String,
+   * name: 'private', required: false, type: ApplicationCommandOptionType.Boolean,
+   * })
+   * ```
+   */
+  setOptions(...options: APIApplicationCommandOption[]) {
+    if (options.length === 0) return this.edit({ options: [] });
+    return this.edit({ options: [...options] });
   }
 
   /** Deletes this command */

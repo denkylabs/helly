@@ -3,6 +3,7 @@ import { Transformers } from '../utils/transformers';
 
 /** Represents a validated button component */
 class ButtonBuilder {
+  /** The raw data of this button */
   data: APIButtonComponent;
   constructor(data?: APIButtonComponent) {
     this.data = data ?? {
@@ -40,6 +41,11 @@ class ButtonBuilder {
   /** The style of this button */
   get style() {
     return this.data.style;
+  }
+
+  /** The emoji of this button */
+  get emoji() {
+    return this.data.emoji;
   }
 
   /**

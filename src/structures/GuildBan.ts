@@ -2,7 +2,6 @@ import type { APIBan } from 'discord-api-types/v10';
 import type { Client } from '../client/Client';
 import { BaseStructure } from './BaseStructure';
 import type { Guild } from './Guild';
-import { User } from './User';
 
 class GuildBan extends BaseStructure {
   /** Raw ban data */
@@ -22,7 +21,7 @@ class GuildBan extends BaseStructure {
 
   /** The user that was banned */
   get user() {
-    return this.client.caches.users.get(this.data.user.id) ?? new User(this.client, this.data.user);
+    return this.client.caches.users.get(this.data.user.id) ?? this.client.users.updateOrSet(this.data.user.id, this.data.user);
   }
 
   /** @private */
